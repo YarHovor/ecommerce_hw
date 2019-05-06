@@ -6,8 +6,8 @@
     {# цикл чтоб ходить по "товарам" #}
     {% for product in products %}
         <p>
-            <a href="{{ path('product', {'id': product.id}) }}"> {{ product.name }}</a>
-            - {{ product.price / 100 }}
+            <a href="{{ path('product', {'id': product.id}) }}">
+                {{ product.name }}</a> - {{ product.price / 100 }}
         </p>
     {% endfor %}
 
