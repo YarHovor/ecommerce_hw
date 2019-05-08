@@ -3,12 +3,35 @@
 {% block body %}
     <h1>Товари</h1>
 
-    {# цикл чтоб ходить по "товарам" #}
-    {% for product in products %}
-        <p>
-            <a href="{{ path('product', {'id': product.id}) }}">
-                {{ product.name }}</a> - {{ product.price / 100 }}
-        </p>
-    {% endfor %}
+    {# добавляем карти для товаров#}
+    <div class="row">
 
+        {# цикл чтоб ходить по "товарам" #}
+            {% for product in products %}
+               {# <p>
+                    <a href="{{ path('product', {'id': product.id}) }}">
+                        {{ product.name }}</a> - {{ product.price / 100 }}
+                </p>#}
+                <div class="col-md-6 col-lg-3">
+                    {#  class = col-md-6  для малих екранов
+                        class = col-lg-3  для больших екранов
+                     #}
+                    <div class="card">
+                        {#
+                            //placehold.if - сайт которій позволяет рисовать квадратики нужного размера
+                        #}
+                        <img src="//placehold.it/200x150" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {#Card title - вместо него будет имя продукта. І делаем чтобі била тіпа ссилкою, как више#}
+                                <a href="{{ path('product', {'id': product.id}) }}"> {{ product.name }}</a>
+                            </h5>
+                            <p class="card-text">{# а тут цена #} {{ product.price / 100 }}</p>
+                            <p class="card-text">{# а тут описание продукта #} {{ product.description }}</p>
+                            <a href="#" class="btn btn-primary">{# а тут корзина #}В корзину</a>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+    </div>
 {% endblock %}
