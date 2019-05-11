@@ -13,6 +13,7 @@ class ProductAdmin extends AbstractAdmin
         //метод адд, для добавление інфи о колонсках списка.
         // Смотрим что за поля есть в Сущности и что будет показувати в списке
             ->addIdentifier('name')
+            ->add('categories')
             ->addIdentifier('description')
             ->add('price')
             ->add('count')
@@ -23,6 +24,7 @@ class ProductAdmin extends AbstractAdmin
     {
         $filter
             ->add('name')
+            ->add('categories')
             ->add('description')
             ->add('price')
             ->add('count')
@@ -33,6 +35,7 @@ class ProductAdmin extends AbstractAdmin
     {
         $form
             ->add('name')
+            ->add('categories')
             ->add('description')
             ->add('price')
             ->add('count')
