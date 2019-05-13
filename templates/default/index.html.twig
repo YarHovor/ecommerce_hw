@@ -8,10 +8,10 @@
 
         {# цикл чтоб ходить по "товарам" #}
             {% for product in products %}
-               {# <p>
+               {# ДО <p>
                     <a href="{{ path('product', {'id': product.id}) }}">
                         {{ product.name }}</a> - {{ product.price / 100 }}
-                </p>#}
+                </p> ПОСЛЕ - #}
                 <div class="col-md-6 col-lg-3">
                     {#  class = col-md-6  для малих екранов
                         class = col-lg-3  для больших екранов
@@ -28,7 +28,8 @@
                             </h5>
                             <p class="card-text">{# а тут цена #} {{ product.price / 100 }}</p>
                             <p class="card-text">{# а тут описание продукта #} {{ product.description }}</p>
-                            <a href="#" class="btn btn-primary">{# а тут корзина #}В корзину</a>
+                            <a href="{{ path('order_add_to_cart', {'id': product.id}) }}"  {# ссылка на корзину #}
+                               class="btn btn-primary">{# а тут корзина #}В корзину</a>
                         </div>
                     </div>
                 </div>
