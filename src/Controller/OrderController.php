@@ -32,4 +32,28 @@ class OrderController extends AbstractController
         //и кидаем пользователя туда откуда он пришел.
         return $this->redirect($referer);   //
     }
+
+    //Сделать метод \App\Controller\OrdersController::cart()
+    //c шаблоном templates/orders/cart.html.twig
+
+    //делаем метод и аннотациию (УРЛ)
+    /**
+     * @Route("/cart", name="order_cart")
+     */
+    public function cart(OrdersService $ordersService) // парметр ордерСервис
+    {
+        return $this->render('order/cart.html.twig', [ // и шаьлон ордер
+            'order' => $ordersService->getOrderFromCart(), // передадим сущность заказа.
+        ]);
+    }
+
+
+    // аннотации нету, бо его не будем грузить как отдельную страницу, а просто будет отображатся на всех
+    // этот метод нужен для того чтобы рядом с корзиной писало сумму добавленных в корзину.
+    public function headerCart(OrdersService $ordersService) // тоже надо ОрдерСервис
+    {
+        return $this->render('order/headerCart.html.twig', [ // шаблон
+            'order' => $ordersService->getOrderFromCart(), //
+        ]);
+    }
 }
