@@ -22,9 +22,13 @@ class OrderController extends AbstractController
         $ordersService->addToCart($product);  // говорим - добавь в корзину наш продукт
 
         // а потом пользователя надо перебросить на туже страницу на которой он нажал эту кнопку.
-        if ($request->isXmlHttpRequest()) {  // берем
-            return $this->headerCart($ordersService);   //
+
+        // для AJAX
+        if ($request->isXmlHttpRequest()) {  // метод возвращает ТРУ если запрос пришел Аяксом
+            return $this->headerCart($ordersService);   // возвращаем то что рисует ХедерКарт
         }
+
+
         //надо бросить пользователя туда где он тыклнул эту кнопку
         //береm ссылку на которой он был до этого, ссылкой типа
         // берем реквест  - берем его хедерс - и берем этот заголовок
