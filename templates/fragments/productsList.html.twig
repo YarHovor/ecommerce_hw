@@ -9,10 +9,23 @@
                         class = col-lg-3  для больших екранов
                      #}
                     <div class="card">
+                        {#  #}
+                        {# отображение картинок загруженных с админки#}
+                        {# в проверку надо добавить #}
+                        {%  if product.image and vich_uploader_asset(product, 'image') %}
+                            {# если есть картинка используем функнкцию - 1 параметр сущность в которой лежит кариинка, 2 - имя свойства которое типам фала #}
+                            <img src="{{ vich_uploader_asset(product, 'image') }}" class="card-img-top" alt="...">
+                        {% else %}
                         {#
                             //placehold.if - сайт которій позволяет рисовать квадратики нужного размера
+
+                            если же нету загруженной картинки будет просто черный экран, ы
                         #}
-                        <img src="//placehold.it/200x150" class="card-img-top" alt="...">
+                            <img src="//placehold.it/200x150" class="card-img-top" alt="...">
+                        {% endif %}
+
+
+
                         <div class="card-body">
                             <h5 class="card-title">
                                 {#Card title - вместо него будет имя продукта. І делаем чтобі била тіпа ссилкою, как више#}
