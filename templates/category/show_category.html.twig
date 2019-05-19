@@ -1,8 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>{{ category.name }}</h1>
+{# http://127.0.0.1:8000/category/1 #}
 
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block body %}
+    <h4><b>Категория:</b> {{ category.name }}</h4>
+    {# Вывод картинок самих категорий и товаров на странице просмотра котегории #}
+    <div class="row">
+        <div class="col-md-6 col-lg-3">
+                {% if category.image and vich_uploader_asset(category, 'image') %}
+                    <img src="{{ vich_uploader_asset(category, 'image') }}" class="card-img-top" alt="...">
+                {% else %}
+                    <img src="//placehold.it/200x150" class="card-img-top" alt="...">
+                {% endif %}
+        </div>
+    </div>
+
+    <h3>Товары</h3>
     <div class="row">
        {# {% for product in category.products %} #}
 
@@ -12,7 +27,5 @@
 
 {% endblock %}
 
-{% block title %}
-    {{ category.name }}
-{% endblock %}
+
 
