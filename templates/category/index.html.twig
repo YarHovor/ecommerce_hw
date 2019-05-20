@@ -11,7 +11,7 @@
             {% for category in categorys %}
 
                 {% if category.image and vich_uploader_asset(category, 'image') %}
-                    <img src="{{ vich_uploader_asset(category, 'image') }}" class="card-img-top" alt="...">
+                    <img src="{{ vich_uploader_asset(category, 'image')|imagine_filter('product_thumb') }}" class="card-img-top" alt="...">
                 {% else %}
                     <img src="//placehold.it/200x150" class="card-img-top" alt="...">
                 {% endif %}

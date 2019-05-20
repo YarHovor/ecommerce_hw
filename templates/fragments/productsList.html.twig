@@ -14,7 +14,7 @@
                         {# в проверку надо добавить #}
                         {%  if product.image and vich_uploader_asset(product, 'image') %}
                             {# если есть картинка используем функнкцию - 1 параметр сущность в которой лежит кариинка, 2 - имя свойства которое типам фала #}
-                            <img src="{{ vich_uploader_asset(product, 'image') }}" class="card-img-top" alt="...">
+                            <img src="{{ vich_uploader_asset(product, 'image')|imagine_filter('product_thumb') }}" class="card-img-top" alt="...">
                         {% else %}
                         {#
                             //placehold.if - сайт которій позволяет рисовать квадратики нужного размера

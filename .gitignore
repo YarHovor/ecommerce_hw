@@ -18,3 +18,9 @@
 ###< symfony/web-server-bundle ###
 
 /.idea/
+
+/public/images/
+
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###
