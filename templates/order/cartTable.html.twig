@@ -8,6 +8,7 @@
         <th>Количество</th>
         <th>Цена</th>
         <th>Стоимость</th>
+        <th></th>
     </tr>
 
     {# цикл для того чтобы идти по заказу по его итемсам и выводить #}
@@ -22,12 +23,18 @@
             </td>
             <td>{{ item.price|money}}</td>
             <td>{{ item.amount|money}}</td>
+            <td>
+                <a href="{{ path('order_delete_item', {'id': item.id}) }}" class="js-cart-delete">
+                    <i class="fas fa-minus-circle"></i>
+                </a>
+            </td>
         </tr>
     {% endfor %}
 
     {# вывод общей стоимости  #}
     <tr>
         <td colspan="3">Всего</td>
-        <td>{{ order.amount|money}}</td>
+        <td id="orderAmount">{{ order.amount|money }}</td>
+        <td></td>
     </tr>
 </table>

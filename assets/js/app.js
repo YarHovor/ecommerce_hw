@@ -12,4 +12,8 @@ require('../css/app.scss');
 const $ = require('jquery');
 require('bootstrap');
 
+// yarn add --dev @fortawesome/fontawesome-free - установка
+require('@fortawesome/fontawesome-free/scss/fontawesome.scss'); // подключение fontawesome
+require('@fortawesome/fontawesome-free/scss/solid.scss');   // тоже
+
 require('./cart');

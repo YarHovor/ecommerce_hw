@@ -81,4 +81,13 @@ class OrdersService
         $this->entityManager->flush(); //сохраняем в БД
         return $orderItem->getOrder(); //вернуть заказ
     }
+
+    public function deleteItem(OrderItem $orderItem): Order
+    {
+        $order = $orderItem->getOrder();
+        $order->removeOrderItem($orderItem);
+        $this->entityManager->remove($orderItem);
+        $this->entityManager->flush();
+        return $order;
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Order;
 use App\Entity\OrderItem;
 use App\Entity\Product;
 use App\Service\OrdersService;
@@ -80,4 +81,22 @@ class OrderController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/cart/delete-item/{id}", name="order_delete_item")
+     */
+    public function deleteItem(OrderItem $orderItem, OrdersService $ordersService, Request $request)
+    {
+        // zachita ot xakera
+        $order = $ordersService->getOrderFromCart();  // сервис для проверки
+        if ($orderItem->getOrder() !== $order) {   // берем текущую корзину, и если ордерИтем не= текущей корзине
+            return $this->createAccessDeniedException('Invalid order item'); // то
+        }
+        $ordersService->deleteItem($orderItem);
+        if ($request->isXmlHttpRequest()) {
+            return $this->render('order/cartTable.html.twig', [
+                'order' => $order,
+            ]);
+        }
+        return $this->redirectToRoute('order_cart');
+    }
 }
