@@ -1,0 +1,33 @@
+{# табличка с товарами #}
+
+    {#  #}
+
+<table class="table table-striped"> {# класс bootstrap для табличек #}
+    <tr>
+        <th>Товар</th>
+        <th>Количество</th>
+        <th>Цена</th>
+        <th>Стоимость</th>
+    </tr>
+
+    {# цикл для того чтобы идти по заказу по его итемсам и выводить #}
+    {% for item in order.orderItems %}
+        <tr>
+            {# рисуем строчки - товар, к-во, цена, стоимость #}
+            <td>{{ item.product.name }}</td>
+            <td>
+                <input type="number" min="1" class="js-cart-count"
+                       data-href="{{ path('order_update_count', {'id': item.id}) }}"
+                       value="{{ item.count }}">
+            </td>
+            <td>{{ item.price|money}}</td>
+            <td>{{ item.amount|money}}</td>
+        </tr>
+    {% endfor %}
+
+    {# вывод общей стоимости  #}
+    <tr>
+        <td colspan="3">Всего</td>
+        <td>{{ order.amount|money}}</td>
+    </tr>
+</table>

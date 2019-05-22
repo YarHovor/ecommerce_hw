@@ -73,4 +73,12 @@ class OrdersService
 
         return $order; // возвращаем из метода зазказ
     }
+
+    // метод который изменит к-во
+    public function setCount(OrderItem $orderItem, int $count): Order
+    {
+        $orderItem->setCount($count); // добавляем к-во
+        $this->entityManager->flush(); //сохраняем в БД
+        return $orderItem->getOrder(); //вернуть заказ
+    }
 }

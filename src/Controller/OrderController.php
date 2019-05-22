@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\OrderItem;
 use App\Entity\Product;
 use App\Service\OrdersService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -60,4 +61,23 @@ class OrderController extends AbstractController
             'order' => $ordersService->getOrderFromCart(), //
         ]);
     }
+
+    /**
+     * @Route("/cart/update-count/{id}", name="order_update_count")
+     */
+    public function updateCount(OrderItem $orderItem, OrdersService $ordersService, Request $request)
+    {
+        // совпадает ли текущая корзина с текущим пользователем с заказом ордерИтем
+        $order = $ordersService->getOrderFromCart();  // сервис для проверки
+        if ($orderItem->getOrder() !== $order) {   // берем текущую корзину, и если ордерИтем не= текущей корзине
+            return $this->createAccessDeniedException('Invalid order item'); // то
+        }
+        // а если хорошо надо обновить к-во и отдать ту же самую табличку
+        $count = $request->request->getInt('count');  // к-во передаем
+        $ordersService->setCount($orderItem, $count); // используем метод
+        return $this->render('order/cartTable.html.twig', [ // ответ - отрисование таблицы в отдельный шаблон
+            'order' => $order,   //
+        ]);
+    }
+
 }
