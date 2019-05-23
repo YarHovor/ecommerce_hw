@@ -70,6 +70,7 @@ class OrderController extends AbstractController
     {
         // совпадает ли текущая корзина с текущим пользователем с заказом ордерИтем
         $order = $ordersService->getOrderFromCart();  // сервис для проверки
+        // защита от хакера
         if ($orderItem->getOrder() !== $order) {   // берем текущую корзину, и если ордерИтем не= текущей корзине
             return $this->createAccessDeniedException('Invalid order item'); // то
         }
@@ -81,22 +82,27 @@ class OrderController extends AbstractController
         ]);
     }
 
+
+    // метод для удаление в корзины в контроллере
     /**
      * @Route("/cart/delete-item/{id}", name="order_delete_item")
      */
     public function deleteItem(OrderItem $orderItem, OrdersService $ordersService, Request $request)
     {
-        // zachita ot xakera
+
         $order = $ordersService->getOrderFromCart();  // сервис для проверки
-        if ($orderItem->getOrder() !== $order) {   // берем текущую корзину, и если ордерИтем не= текущей корзине
+        // защита от хакера ( с апдейта стырино )
+         if ($orderItem->getOrder() !== $order) {   // берем текущую корзину, и если ордерИтем не= текущей корзине
             return $this->createAccessDeniedException('Invalid order item'); // то
         }
+
         $ordersService->deleteItem($orderItem);
-        if ($request->isXmlHttpRequest()) {
-            return $this->render('order/cartTable.html.twig', [
+        if ($request->isXmlHttpRequest()) { // если пришел Аяксом
+            return $this->render('order/cartTable.html.twig', [     // табличку вовращаем
                 'order' => $order,
             ]);
         }
+        // если не то редирект на ту же страницу с корзиной.
         return $this->redirectToRoute('order_cart');
     }
 }
