@@ -24,7 +24,6 @@
             <td>{{ item.price|money}}</td>
             <td>{{ item.amount|money}}</td>
             <td>
-                {# удаление товара #}
                 <a href="{{ path('order_delete_item', {'id': item.id}) }}" class="js-cart-delete">
                     <i class="fas fa-minus-circle"></i>
                 </a>

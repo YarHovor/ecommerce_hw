@@ -1,12 +1,12 @@
 const $ = require('jquery'); // подключение jQuery
 
-let $headerCart = $('#header-cart'); // вывели в переменную// вместо дублирования кода
-let $body = $('body');      // вместо дублирования кода
+let $headerCart = $('#header-cart');
+let $body = $('body');
 
 // обработчик для добаления в корзину
 $('.js-add-to-cart').on('click', function (event) {
 
-    event.preventDefault(); // запрет на переход по своей ссылке
+    event.preventDefault();
 
     //ajax zapros
     $.get(this.href, function (data) {
@@ -21,17 +21,15 @@ $body.on('input', '.js-cart-count', function (event) {
     $.post($me.data('href'), {'count': $me.val()}, updateCart);
 });
 
-// обработчик события для удаление товара
-$body.on('click', '.js-cart-delete', function (event) {  // обработчик, рагируем по событию клик, ид, ф-я
-    event.preventDefault();     // запрет на переход по своей ссылке
+//
+$body.on('click', '.js-cart-delete', function (event) {
+    event.preventDefault();
 
-    //ajax zapros
-    if (confirm('Вы действительно хотите удалить товар из корзины?')) {  //
+    if (confirm('Вы действительно хотите удалить товар из корзины?')) {
         $.post(this.href, updateCart);
     }
 });
 
-// вместо дублирования кода
 function updateCart(data) {
     $('#cartTable').html(data);
 

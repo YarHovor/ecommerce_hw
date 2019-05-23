@@ -38,11 +38,10 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    // для категорий в шапке
     public function headerCategories(CategoryRepository $categoryRepository)
     {
-        return $this->render('category/header.html.twig',[ // шаблон, который не нужнается от базового
-            'categories' => $categoryRepository->findBy([], ['name' => 'ASC']), // массив так передают
+        return $this->render('category/header.html.twig',[
+            'categories' => $categoryRepository->findBy([], ['name' => 'ASC']),
         ]);
     }
 
