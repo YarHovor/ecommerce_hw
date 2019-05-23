@@ -82,12 +82,12 @@ class OrdersService
         return $orderItem->getOrder(); //вернуть заказ
     }
 
-    public function deleteItem(OrderItem $orderItem): Order
+    public function deleteItem(OrderItem $orderItem): Order // метод для удаление товаров, вовращ Ордер
     {
-        $order = $orderItem->getOrder();
-        $order->removeOrderItem($orderItem);
+        $order = $orderItem->getOrder();            //взяли заказ
+        $order->removeOrderItem($orderItem);        // вызыв метод
         $this->entityManager->remove($orderItem);
-        $this->entityManager->flush();
-        return $order;
+        $this->entityManager->flush();              // сохр в БД
+        return $order;                              // вернуть заказ
     }
 }

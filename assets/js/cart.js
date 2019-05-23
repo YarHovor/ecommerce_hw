@@ -1,12 +1,12 @@
 const $ = require('jquery'); // подключение jQuery
 
-let $headerCart = $('#header-cart');
-let $body = $('body');
+let $headerCart = $('#header-cart');    // вывели в переменную// вместо дублирования кода
+let $body = $('body');  // вместо дублирования кода
 
 // обработчик для добаления в корзину
 $('.js-add-to-cart').on('click', function (event) {
 
-    event.preventDefault();
+    event.preventDefault(); // запрет на переход по своей ссылке
 
     //ajax zapros
     $.get(this.href, function (data) {
@@ -21,15 +21,16 @@ $body.on('input', '.js-cart-count', function (event) {
     $.post($me.data('href'), {'count': $me.val()}, updateCart);
 });
 
-//
-$body.on('click', '.js-cart-delete', function (event) {
-    event.preventDefault();
+//// обработчик события для удаление товара
+$body.on('click', '.js-cart-delete', function (event) { // обработчик, рагируем по событию клик, ид, ф-я
+    event.preventDefault(); // запрет на переход по своей ссылке
 
     if (confirm('Вы действительно хотите удалить товар из корзины?')) {
         $.post(this.href, updateCart);
     }
 });
 
+// вместо дублирования кода
 function updateCart(data) {
     $('#cartTable').html(data);
 
