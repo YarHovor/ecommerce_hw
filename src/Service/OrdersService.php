@@ -8,6 +8,7 @@ use App\Entity\Product;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class OrdersService
 {
@@ -19,14 +20,22 @@ class OrdersService
 
     private $entityManager; // свойство для менеджера
 
+    private $mailer;
+
+    private $ordersEmail;
+
     public function __construct(
         SessionInterface $session, // метод для роботы с сессиями
         OrderRepository $orderRepository, // для вытягивания данных из базы (заказ)
-        EntityManagerInterface $entityManager // для сохранение в базу, метод этот нужен
+        EntityManagerInterface $entityManager, // для сохранение в базу, метод этот нужен
+		Mailer $mailer,
+		ParameterBagInterface $parameterBag
     ) {
         $this->session = $session; //сохранение
         $this->orderRepository = $orderRepository; // сохранять ээто свойство в полусенное значение
         $this->entityManager = $entityManager;
+        $this->mailer = $mailer;
+        $this->ordersEmail = $parameterBag->get('orders_email');
     }
 
     public function getOrderFromCart()
@@ -89,5 +98,21 @@ class OrdersService
         $this->entityManager->remove($orderItem);
         $this->entityManager->flush();              // сохр в БД
         return $order;                              // вернуть заказ
+    }
+
+    public function makeOrder(Order $order)  // сервис
+    {
+        $this->entityManager->flush();  // сохраняем заказ
+        $this->session->remove(self::CART_SESSION_KEY);  // очищаем корзину
+        $this->mailer->sendMessage(                             //отпрвить письмо юзеру
+            'order/customerEmail.html.twig',        //указываем шаблон
+            [$order->getEmail()],                           // адрес получателя
+            ['order' => $order]                             // переменные для шаблона
+        );
+        $this->mailer->sendMessage(                         // отправить письмо админу
+            'order/adminEmail.html.twig',
+            [$this->ordersEmail],
+            ['order' => $order]
+        );
     }
 }

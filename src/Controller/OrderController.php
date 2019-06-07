@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Order;
 use App\Entity\OrderItem;
 use App\Entity\Product;
+use App\Form\OrderType;
 use App\Service\OrdersService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -104,7 +105,36 @@ class OrderController extends AbstractController
             ]);
         }
 
-        // если не то редирект на ту же страницу с корзиной.
+        // если не, то редирект на ту же страницу с корзиной.
         return $this->redirectToRoute('order_cart');
+    }
+
+
+    // метод для оформления заказа
+    /**
+     * @Route("/order/make", name="order_make_order")
+     */
+    public function makeOrder(OrdersService $ordersService, Request $request) // реквест для формы надо
+    {
+        $order = $ordersService->getOrderFromCart();  // достаем текущий заказ
+        $form = $this->createForm(OrderType::class, $order); // делаем форму для заказаь (создали форму из заказа)
+
+        // обработка запроса формы
+        $form->handleRequest($request);     //
+         if ($form->isSubmitted() && $form->isValid()) { //
+             $ordersService->makeOrder($order);  //сервис для сохранение и отправляние письма админу и пользователю
+             return $this->redirectToRoute('order_thanks'); // после успешного оформление на страничку благодарности
+         }
+        return $this->render('order/makeOrder.html.twig', [  // вывод
+            'order' => $order,
+            'form' => $form->createView(),
+        ]);
+    }
+    /**
+     * @Route("/order/thanks", name="order_thanks")
+     */
+    public function thanks()
+    {
+        return $this->render('order/thanks.html.twig');
     }
 }

@@ -11,6 +11,8 @@
         {{ include('order/cartTable.html.twig', {'order': order}) }}
     </div>
 
+    {# ссылка на офорление заказа#}
+    <a href="{{ path('order_make_order') }}" class="btn btn-primary">Оформить заказ</a>
 
 {% endblock %}
 
