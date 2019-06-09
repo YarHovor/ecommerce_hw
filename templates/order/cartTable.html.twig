@@ -39,3 +39,17 @@
         <td></td>
     </tr>
 </table>
+
+{# Скрытие кнопки "оформить заказ" при пустой корзине
+ hidden="hidden" - скрывает кнопку "оформить заказ"
+ #}
+
+{% if order.amount == 0 %}
+    <a href="{{ path('order_make_order') }}" class="btn btn-primary" id="orderButton" hidden="hidden">
+        Оформить заказ
+    </a>
+{% else %}
+    <a href="{{ path('order_make_order') }}" class="btn btn-primary" id="orderButton">
+        Оформить заказ
+    </a>
+{% endif %}

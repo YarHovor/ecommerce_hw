@@ -117,6 +117,14 @@ class OrderController extends AbstractController
     public function makeOrder(OrdersService $ordersService, Request $request) // реквест для формы надо
     {
         $order = $ordersService->getOrderFromCart();  // достаем текущий заказ
+
+        // Скрытие кнопки "оформить заказ" при пустой корзине
+        // отслеживаем сумму заказов, если же она 0 то знач там пусто.
+        if ($order->getAmount() == 0){
+            return $this->redirectToRoute('default'); // если пустая корзина то делаем редирект на главную
+        }
+
+
         $form = $this->createForm(OrderType::class, $order); // делаем форму для заказаь (создали форму из заказа)
 
         // обработка запроса формы
