@@ -58,7 +58,7 @@ class Order
     private $orderItems;
 
 
-
+//s25
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\NotBlank(groups={"makeOrder"})
@@ -78,7 +78,7 @@ class Order
      */
     private $address;
 
-
+//
     public function __construct()
     {
         $this->createdAt = new \DateTime();

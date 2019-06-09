@@ -10,7 +10,7 @@
         yarn add --dev @fortawesome/fontawesome-free - установка
         #}
         {#собранная css#}
-        {{ encore_entry_link_tags('app') }}
+        {{ encore_entry_link_tags('frontend') }}
 
         {% block stylesheets %}{% endblock %}
     </head>
@@ -110,9 +110,9 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
         #}
         {#подключили JS
-        <script src="{{ asset('/js/app.js') }}"></script>#}
+        <script src="{{ asset('/js/frontend.js') }}"></script>#}
 
-        {{ encore_entry_script_tags('app') }}
+        {{ encore_entry_script_tags('frontend') }}
 
         {% block javascripts %}{% endblock %}
     </body>
