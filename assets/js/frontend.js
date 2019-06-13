@@ -16,4 +16,4 @@ require('bootstrap');
 require('@fortawesome/fontawesome-free/scss/fontawesome.scss'); // подключение fontawesome
 require('@fortawesome/fontawesome-free/scss/solid.scss');   // тоже
 
-require('./frontend/cart');
+require('./frontend/cart'); // изменен путь к файлу

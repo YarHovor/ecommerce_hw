@@ -1,5 +1,6 @@
 {% extends '@SonataAdmin/CRUD/edit.html.twig' %}
 
+{# +1 к маршруту к админке #}
 {% block form %}
     {{ parent() }}
     <script id="recalc_url" data-url="{{ admin.generateObjectUrl('recalc', object) }}"></script>

@@ -48,28 +48,30 @@ class OrderAdmin extends AbstractAdmin
             ->add('createdAt')
             ->add('status')
             ->add('isPaid')
-            ->add('amount', NumberType::class, [
-                'scale' => 2,
-                'attr' => ['class' => 'js-amount', 'readonly']
+            ->add('amount', NumberType::class, [  // для валидации
+                'scale' => 2, // 2 знака после запятой
+                'attr' => ['class' => 'js-amount', 'readonly'] // аттр - выводит HTML трибуты
             ])
             ->add('phone')
             ->add('email')
             ->add('address')
-            ->add(
+            ->add(      // добавляем ОрдерИтемс
                 'orderItems',
-                CollectionType::class,
+                CollectionType::class, // с елементом в форме колекции
                 [
-                    'by_reference' => false
+                    'by_reference' => false  // нужен для работы со свзяаной сущностью
                 ],
                 [
-                    'edit' => 'inline',
-                    'inline' => 'table',
+                    // режимы отображение
+                    'edit' => 'inline',  // редактировать же можно тут
+                    'inline' => 'table', // и чтобы выглядело в виде таблицы
                 ]
             );
-        $form->get('amount')->addModelTransformer(new MoneyTransformer());
+        $form->get('amount')->addModelTransformer(new MoneyTransformer()); // мани трансформер, и форма будет вызывать его для преобразование
     }
+    // теперь надо добавить роут к методу (Админ/ОрдерКонтроллер)
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('recalc', $this->getRouterIdParameter() . '/recalc');
+        $collection->add('recalc', $this->getRouterIdParameter() . '/recalc');   // вот так вот, +1 маршрут к админке
     }
 }

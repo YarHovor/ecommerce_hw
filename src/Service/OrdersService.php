@@ -102,7 +102,7 @@ class OrdersService
 
     public function makeOrder(Order $order)  // сервис
     {
-        $order->setStatus(Order::STATUS_ORDERED);
+        $order->setStatus(Order::STATUS_ORDERED); ; 
 
         $this->entityManager->flush();  // сохраняем заказ
         $this->session->remove(self::CART_SESSION_KEY);  // очищаем корзину

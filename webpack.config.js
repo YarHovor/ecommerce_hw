@@ -17,6 +17,8 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
      */
+
+    // тута точки входа  !!!!!!
     .addEntry('frontend', './assets/js/frontend.js')
     .addEntry('admin', './assets/js/admin.js')
     //.addEntry('page1', './assets/js/page1.js')
